@@ -1,0 +1,102 @@
+/* define custom font for the page */
+@font-face {
+    font-family: CroissantOne;
+    src: url(../fonts/CroissantOne-Regular.ttf) format('truetype');
+}
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'CroissantOne';
+}
+
+html,body{
+    height: 100%;
+}
+
+.body-bg{
+    background-image: url(../images/pexels-marta-dzedyshko-2067423.jpg);
+    height: calc(100%-57px);
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    
+    /* -webkit-scrollbar */
+
+}
+#ef{
+   position: relative;
+        top:0;
+         left: 0;
+         width: 100%;
+         height: auto;
+         background-color: rgba(0, 0, 0, 0.5);
+         
+}
+
+.loader{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+
+.card-title{
+    font-size: 1.2rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem ;
+    border-bottom: 1px solid #ccc;
+
+    
+}
+
+.favourite-btn::before{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 0;
+    content: "\f004";
+    margin-right: 0.25rem;
+
+}
+
+.favourite-btn.active::before{
+    display: none;
+
+}
+.favourite-btn::after{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f004";
+    margin-right: 0.25rem;
+    display: none;
+
+}
+
+.favourite-btn.active::after{
+    display: flex;
+}
+
+.favourite-btn.active.delete::after{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f2ed";
+    margin-right: 0.25rem;
+
+}
+
+.favourite-btn{
+    text-decoration: none;
+    font-size: 1.8rem;
+}
+.meal-card{
+    cursor: pointer;
+}
