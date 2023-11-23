@@ -1,4 +1,4 @@
-// getFavourites
+// getFavourites array
 
 function getFavourites(){
   let favourites=localStorage.getItem('favourites');
@@ -10,10 +10,11 @@ function getFavourites(){
   return favourites;
 }
 
-// setFavourites
+// setFavourites  Array
 
 function setFavourites(favourites){
   if(favourites){
+    // set array by stringifying it.
     localStorage.setItem('favourites',JSON.stringify(favourites));
   }else{
     // unset item if we get empty array
@@ -40,24 +41,26 @@ function removeFavourite(mealId){
   setFavourites(favourites);
 }
 
+  //  check if the item is favourite if it is return true else false
 function isItemFavourite(favourites,item){
   const index=favourites.findIndex((favItem)=> favItem.idMeal === item?.idMeal);
   return index !== -1;
 }
 
-
+// redirect to meal details page if user click on the item
 function redirectToDetailsPage(itemId){
   window.location.href=`./meal-details.html?id=${itemId}`;
 }
-// render list
 
+// render list of items
 function renderList(meals = [],includeDelteBtn=false){
-
+  // favourite itesm to check if it is favourite or not . if it is favourite then we will activate the favourite button
   let favourite=getFavourites();
+  // items container where items will be set
   let itemsContainer=document.getElementById('itemsContainer');
-
+  // reset container before setting new content
   itemsContainer.innerHTML="";
-
+  // run loop for meals to set the content of each card
   meals.forEach((item)=>{
     let buttonClass="";
     if(includeDelteBtn){
@@ -77,9 +80,11 @@ function renderList(meals = [],includeDelteBtn=false){
     </div>`
 
     let div=document.createElement('div');
+    // addding classes for responsiveness
     div.classList.add('col-md-4');
     div.classList.add('col-sm-6');
     div.innerHTML=content;
+    // append card in items conatiner
     itemsContainer.appendChild(div);
     });
     // for favourite buttons
@@ -102,6 +107,7 @@ function renderList(meals = [],includeDelteBtn=false){
           }
             else{
               button.classList.add('active');
+              // adding an object inside favourite to easily fetch data in favourites page
               addFavourite(meals.find((meal)=> meal.idMeal ===mealId ));
             }
         };
@@ -113,18 +119,19 @@ function renderList(meals = [],includeDelteBtn=false){
     })
 
 }
+// render favourites list
 
 function renderFavourites(){
   let favourites=getFavourites();
   renderList(favourites,true);
 }
 
-
+// reset list
 function resetList(){
   renderList([]);
 }
 
-
+// call to the services-api to fetch data from the api util then we'll show spinner
 
 const setupMeals= async (searchString)=>{ 
   try {
@@ -140,20 +147,14 @@ const setupMeals= async (searchString)=>{
     </div>`;
        itemsContainer.innerHTML=loader;
        let meals=await searchMeals(searchString);
+      //  if meals is not empty we'll render the list else reset the list
        if(meals){
           renderList(meals.meals);
        }else{
           resetList();
        }
-
-
-
   } catch (error) {
-
     console.log('error: ',error);
-    
   }
-  
-
 
 }
